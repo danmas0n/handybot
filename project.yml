@@ -1,0 +1,41 @@
+name: HandyBot
+options:
+  bundleIdPrefix: com.handybot
+  deploymentTarget:
+    iOS: 15.0
+  xcodeVersion: "14.0"
+
+targets:
+  HandyBot:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: 
+      - path: Sources/HandyBot
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.handybot.app
+        DEVELOPMENT_TEAM: "" # You'll need to set this in Xcode
+        INFOPLIST_FILE: Sources/HandyBot/Info.plist
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        TARGETED_DEVICE_FAMILY: 1
+        CODE_SIGN_ENTITLEMENTS: Sources/HandyBot/HandyBot.entitlements
+    preBuildScripts:
+      - name: "SwiftLint"
+        script: "if which swiftlint > /dev/null; then\n  swiftlint\nfi"
+    frameworks:
+      - Security
+    dependencies:
+      - package: Collections
+        product: Collections
+      - package: Logging
+        product: Logging
+
+packages:
+  Collections:
+    url: https://github.com/apple/swift-collections.git
+    from: 1.0.0
+  Logging:
+    url: https://github.com/apple/swift-log.git
+    from: 1.0.0
